@@ -36,6 +36,7 @@ public class LoginStagingSteps {
 		System.out.println("user validates the home page title in staging env");
 
 		lpa.ValidateLpage();
+		System.out.println("new change");
 			
 	}
 

@@ -1,0 +1,8 @@
+page\Actions\LoginpageActions.class
+page\Objects\LoginPageObjects.class
+utils\SeleniumDriver.class
+page\Base\BasePage$1.class
+page\Base\BasePage.class
+page\Base\AppFactory.class
+utils\AppiumDriver.class
+page\Base\AppDriver.class

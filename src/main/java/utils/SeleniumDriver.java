@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Objects;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
@@ -61,15 +62,13 @@ public class SeleniumDriver {
 		} else if (config.getProperty("browser").equalsIgnoreCase("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
-		} else if (config.getProperty("chromium").equalsIgnoreCase("chromium")) {
+		} else if (config.getProperty("browser").equalsIgnoreCase("chromium")) {
 			WebDriverManager.chromiumdriver().setup();
 			driver = new EdgeDriver();
 		}
 		driver.manage().window().maximize();
-		waitDriver = new WebDriverWait(driver,
-				Duration.ofSeconds(Integer.parseInt(config.getProperty("explicit.wait"))));
-		driver.manage().timeouts()
-				.implicitlyWait(Duration.ofSeconds(Integer.parseInt(config.getProperty("implicit.wait"))));
+		waitDriver = new WebDriverWait(driver,Duration.ofSeconds(Integer.parseInt(config.getProperty("explicit.wait"))));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Integer.parseInt(config.getProperty("implicit.wait"))));
 
 	}
 
@@ -78,16 +77,21 @@ public class SeleniumDriver {
 	}
 
 	public static void setUpDriver() {
-		if (seleniumDriver == null)
+		if (Objects.isNull(seleniumDriver))
 			seleniumDriver = new SeleniumDriver();
 	}
+	
+//	public static void setUpMobDriver() {
+//		if (mobileDriver == null)
+//			mobileDriver == new MobileDriver();
+//	}
 
 	public static void openPage(String url) {
 		driver.get(url);
 	}
 
 	public static void tearDown() {
-		if (driver != null) {
+		if (Objects.nonNull(seleniumDriver)) {
 			driver.close();
 			driver.quit();
 
